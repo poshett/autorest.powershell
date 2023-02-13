@@ -76,7 +76,7 @@ namespace Microsoft.Rest.ClientRuntime.PowerShell
         Name = viewParameters.Type.FullName,
         ViewSelectedBy = new ViewSelectedBy
         {
-          TypeName = viewParameters.Type.FullName
+          TypeName = string.Concat(viewParameters.Type.FullName, "#multiple")
         },
         TableControl = new TableControl
         {

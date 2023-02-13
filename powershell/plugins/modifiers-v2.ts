@@ -92,6 +92,7 @@ interface WhereCommandDirective {
       'set-condition': string
     };
     'clientside-pagination'?: boolean;
+    'disable-switchview'?: boolean;
   };
   add?: {
     parameters?: Array<ParameterDirective>;
@@ -367,6 +368,7 @@ async function tweakModel(state: State): Promise<PwshModel> {
       const paramCompleterReplacer = (directive.set !== undefined) ? directive.set['completer'] : undefined;
       const paramDefaultReplacer = (directive.set !== undefined) ? directive.set['default'] : undefined;
       const cliensidePagination = (directive.set !== undefined) ? directive.set['clientside-pagination'] : undefined;
+      const disableSwitchView = (directive.set !== undefined) ? directive.set['disable-switchview'] : undefined;
 
       // select all operations
       let operations: Array<CommandOperation> = values(state.model.commands.operations).toArray();
@@ -512,6 +514,9 @@ See https://github.com/Azure/autorest.powershell/blob/main/docs/directives.md#de
 
           if (cliensidePagination) {
             operation.details.csharp.clientsidePagination = cliensidePagination;
+          }
+          if (disableSwitchView) {
+            operation.details.csharp.disableSwitchView = disableSwitchView;
           }
           if (breakingChange) {
             operation.details.csharp.breakingChange = operation.details.csharp.breakingChange ? operation.details.csharp.breakingChange : <any>{};
